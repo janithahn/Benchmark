@@ -2,19 +2,25 @@ package operations;
 
 import data.Data;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
-public class OPLinkedList extends Data {
+public class OPVector extends Data {
 
-    /** LinkedList that all the operations are performed on. */
-    private final LinkedList<Integer> linkedList;
+    /** ArrayList that all the operations are performed on. */
+    private final Vector<Integer> vectorList;
 
     private final List<Integer> randomDataSet = getRandomDataSet(getData(), 100);
 
-    public OPLinkedList(List<Integer> integerList) {
+    public OPVector(List<Integer> integerList) {
         super(integerList);
-        linkedList = new LinkedList<>();
+        vectorList = new Vector<>();
+        //process();
+    }
+
+    public OPVector(List<Integer> integerList, int initialCapacity) {
+        super(integerList);
+        vectorList = new Vector<>(initialCapacity);
         //process();
     }
 
@@ -28,7 +34,7 @@ public class OPLinkedList extends Data {
     @Override
     public void insertValues() {
         for (Integer val:getData()) {
-            linkedList.add(val);
+            vectorList.add(val);
         }
     }
 
@@ -36,7 +42,7 @@ public class OPLinkedList extends Data {
     public void searchValues() {
         int i = 0;
         for(Integer val: randomDataSet) {
-            if(linkedList.contains(val)) {
+            if(vectorList.contains(val)) {
                 i++;
             }
         }
@@ -45,7 +51,7 @@ public class OPLinkedList extends Data {
     @Override
     public void deleteValues() {
         for(Integer val: randomDataSet) {
-            linkedList.remove(val);
+            vectorList.remove(val);
         }
     }
 }

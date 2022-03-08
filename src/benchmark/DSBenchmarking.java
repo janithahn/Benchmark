@@ -3,6 +3,7 @@ package benchmark;
 import data.Data;
 import operations.OPArrayList;
 import operations.OPLinkedList;
+import operations.OPVector;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,19 +14,19 @@ import java.util.function.BiFunction;
 public class DSBenchmarking {
 
     // Run each test more than once to get bigger numbers and less noise.
-    private static final int TRIALS = 1;
+    private static final int TRIALS = 100;
 
     // The data to test on
     private static final String DATA_FILE = "data/random_numbers/generated-data/n-2^20-0.data";
 
     // The amount of characters to increment each step
-    private static final int INCREMENT = 10000;
+    private static final int INCREMENT = 100000;
 
     // The number of steps to run.
     private static final int NUM_STEPS = 20;
 
     // The number of characters to start with.
-    private static final int START = 10000;
+    private static final int START = 100000;
 
     // Set an initial capacity to the data structure in use
     private int initialCapacity = 0;
@@ -34,7 +35,9 @@ public class DSBenchmarking {
     private static final List<BiFunction<List<Integer>, Integer, Data>> experimentCreators = List.of(
             (data, capacity) -> new OPArrayList(data),
             OPArrayList::new,
-            (data, capacity) -> new OPLinkedList(data)
+            (data, capacity) -> new OPLinkedList(data),
+            (data, capacity) -> new OPVector(data),
+            OPVector::new
     );
 
     public DSBenchmarking() {}
@@ -87,7 +90,7 @@ public class DSBenchmarking {
     public int getInitialCapacity() { return this.initialCapacity; }
 
     public void measureRunTime() {
-        System.out.println("NumberOfIntegers\tArrayList\tLinkedList");
+        System.out.println("NumberOfIntegers\tArrayList\tLinkedList\tVector");
         for (int numToCheck = getSTART(); numToCheck < getNUM_STEPS()*getINCREMENT() + getSTART(); numToCheck += getINCREMENT()) {
 
             String output = numToCheck + "\t";
@@ -111,7 +114,7 @@ public class DSBenchmarking {
     }
 
     public void measureMemoryConsumption() {
-        System.out.println("NumberOfIntegers\tArrayList\tLinkedList");
+        System.out.println("NumberOfIntegers\tArrayList\tLinkedList\tVector");
         for (int numToCheck = getSTART(); numToCheck < getNUM_STEPS()*getINCREMENT() + getSTART(); numToCheck += getINCREMENT()) {
 
             String output = numToCheck + "\t";

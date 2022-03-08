@@ -10,7 +10,7 @@ public class OPArrayList extends Data {
     /** ArrayList that all the operations are performed on. */
     private final ArrayList<Integer> arrayList;
 
-    private final List<Integer> randomDataSet = getRandomDataSet(getData(), 3);
+    private final List<Integer> randomDataSet = getRandomDataSet(getData(), 100);
 
     public OPArrayList(List<Integer> integerList) {
         super(integerList);
@@ -27,8 +27,8 @@ public class OPArrayList extends Data {
     @Override
     public void process() {
         insertValues();
-        searchValues();
-        deleteValues();
+        //searchValues();
+        //deleteValues();
     }
 
     @Override
