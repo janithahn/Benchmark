@@ -5,6 +5,21 @@ import data.Data;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * ArrayList is,
+ *  + Not synchronized (multiple threads)
+ *  + Increments 50% of the current size when the number of elements exceeds its capacity.
+ *  + Constructor does not have the initialCapacity parameter.
+ *  + Internally uses a doubly linked list.
+ *  + Better for data manipulation tasks.
+ *  + add() -> O(1)
+ *    add(index, element) -> O(N)
+ *    get() -> O(N)
+ *    remove() -> O(N)
+ *    contains() -> O(N)
+ * */
+
+/** Class to perform operations on the LinkedList. */
 public class OPLinkedList extends Data {
 
     /** LinkedList that all the operations are performed on. */

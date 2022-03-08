@@ -5,6 +5,19 @@ import data.Data;
 import java.util.List;
 import java.util.Vector;
 
+/**
+ * ArrayList is,
+ *  + Synchronized (single thread)
+ *  + Increments 100%(doubles the capacity) of the current size when the number of elements exceeds its capacity.
+ *  + Constructor -> Vector(int initialCapacity, int capacityIncrement).
+ *  + Capacity is always at least as large as the vector size.
+ *  + Constructor has the initialCapacity parameter.
+ *  + Can be used ** if size of the array is not known in advance **.
+ *  + Access -> O(1)
+ *    Adding and removing elements from the end -> O(1)
+ * */
+
+/** Class to perform operations on the Vector. */
 public class OPVector extends Data {
 
     /** ArrayList that all the operations are performed on. */
