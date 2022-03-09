@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.BiFunction;
+import java.util.regex.Pattern;
 
 public class DSBenchmarking {
 
@@ -90,7 +91,17 @@ public class DSBenchmarking {
     public int getInitialCapacity() { return this.initialCapacity; }
 
     public void measureRunTime() {
-        System.out.println("NumberOfIntegers\tArrayList\tLinkedList\tVector");
+        List<String[]> outputList = new ArrayList<>();
+        outputList.add(new String[] {
+                "NumberOfIntegers",
+                "ArrayList",
+                "ArrayList(Initialized)",
+                "LinkedList",
+                "Vector",
+                "Vector(Initialized)"
+        });
+
+        //System.out.println("NumberOfIntegers\tArrayList\tLinkedList\tVector");
         for (int numToCheck = getSTART(); numToCheck < getNUM_STEPS()*getINCREMENT() + getSTART(); numToCheck += getINCREMENT()) {
 
             String output = numToCheck + "\t";
@@ -107,14 +118,28 @@ public class DSBenchmarking {
                 double estTime = (endTime - startTime) / 100000000.0;
                 output += estTime + "\t";
             }
-
-            System.out.println(output);
-
+            Pattern pattern = Pattern.compile("\t");
+            String[] string_array = pattern.split(output);
+            outputList.add(string_array);
+            //System.out.println(output);
         }
+
+        WriteOutput wo = new WriteOutput();
+        wo.writeToCsv(outputList, "runtime");
     }
 
     public void measureMemoryConsumption() {
-        System.out.println("NumberOfIntegers\tArrayList\tLinkedList\tVector");
+        List<String[]> outputList = new ArrayList<>();
+        outputList.add(new String[] {
+                "NumberOfIntegers",
+                "ArrayList",
+                "ArrayList(Initialized)",
+                "LinkedList",
+                "Vector",
+                "Vector(Initialized)"
+        });
+
+        //System.out.println("NumberOfIntegers\tArrayList\tLinkedList\tVector");
         for (int numToCheck = getSTART(); numToCheck < getNUM_STEPS()*getINCREMENT() + getSTART(); numToCheck += getINCREMENT()) {
 
             String output = numToCheck + "\t";
@@ -131,9 +156,15 @@ public class DSBenchmarking {
                 double estMem = (basicMemoryConsumption) / (double) getTRIALS();
                 output += Math.round(estMem/(1024 * 1024)) + "\t";
             }
+            Pattern pattern = Pattern.compile("\t");
+            String[] string_array = pattern.split(output);
+            outputList.add(string_array);
 
-            System.out.println(output);
+            //System.out.println(output);
         }
+
+        WriteOutput wo = new WriteOutput();
+        wo.writeToCsv(outputList, "memory");
     }
 
     private static long calcMem() {
