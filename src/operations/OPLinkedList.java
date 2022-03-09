@@ -25,8 +25,6 @@ public class OPLinkedList extends Data {
     /** LinkedList that all the operations are performed on. */
     private final LinkedList<Integer> linkedList;
 
-    private final List<Integer> randomDataSet = getRandomDataSet(getData(), 100);
-
     public OPLinkedList(List<Integer> integerList) {
         super(integerList);
         linkedList = new LinkedList<>();
@@ -43,7 +41,7 @@ public class OPLinkedList extends Data {
     @Override
     public void insertValuesAt() {
         int i = 0;
-        for (Integer val: randomDataSet) {
+        for (Integer val: getRandomDataSet()) {
             linkedList.add(i, val);
             i++;
         }
@@ -52,7 +50,7 @@ public class OPLinkedList extends Data {
     @Override
     public void searchValuesMethod1() {
         int i = 0;
-        for(Integer val: randomDataSet) {
+        for(Integer val: getRandomDataSet()) {
             if(linkedList.contains(val)) {
                 i++;
             }
@@ -62,7 +60,7 @@ public class OPLinkedList extends Data {
     @Override
     public void searchValuesMethod2() {
         int i = -1;
-        for(Integer val: randomDataSet) {
+        for(Integer val: getRandomDataSet()) {
             i = linkedList.indexOf(val);
         }
     }
@@ -70,14 +68,14 @@ public class OPLinkedList extends Data {
     @Override
     public void getValues() {
         int val = 0;
-        for(int i=0; i< randomDataSet.size(); i++) {
+        for(int i=0; i< getRandomDataSet().size(); i++) {
             val = linkedList.get(i);
         }
     }
 
     @Override
     public void deleteValues() {
-        for(Integer val: randomDataSet) {
+        for(Integer val: getRandomDataSet()) {
             linkedList.remove(val);
         }
     }

@@ -11,10 +11,12 @@ public abstract class Data {
 
 	private final List<Integer> integerList;
 
-	/** Create a new data obj from the given text. */
-	protected Data(List<Integer> integerList)
-	{
+	private final List<Integer> randomDataSet;
+
+	/** Create a new data obj from the given list. */
+	protected Data(List<Integer> integerList) {
 		this.integerList = integerList;
+		randomDataSet = getRandomDataSet(getData(), 100);
 	}
 
 	/**
@@ -44,9 +46,13 @@ public abstract class Data {
 	public abstract void deleteValues();
 	
 	/** Return the entire data list of this data obj */
-	public List<Integer> getData()
-	{
+	public List<Integer> getData() {
 		return this.integerList;
+	}
+
+	/** Return the randomly selected data list from the original list */
+	public List<Integer> getRandomDataSet() {
+		return randomDataSet;
 	}
 
 	/** Returns a random sample data list. */

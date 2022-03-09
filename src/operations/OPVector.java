@@ -23,8 +23,6 @@ public class OPVector extends Data {
     /** ArrayList that all the operations are performed on. */
     private final Vector<Integer> vectorList;
 
-    private final List<Integer> randomDataSet = getRandomDataSet(getData(), 100);
-
     public OPVector(List<Integer> integerList) {
         super(integerList);
         vectorList = new Vector<>();
@@ -47,7 +45,7 @@ public class OPVector extends Data {
     @Override
     public void insertValuesAt() {
         int i = 0;
-        for (Integer val: randomDataSet) {
+        for (Integer val: getRandomDataSet()) {
             vectorList.add(i, val);
             i++;
         }
@@ -56,7 +54,7 @@ public class OPVector extends Data {
     @Override
     public void searchValuesMethod1() {
         int i = 0;
-        for(Integer val: randomDataSet) {
+        for(Integer val: getRandomDataSet()) {
             if(vectorList.contains(val)) {
                 i++;
             }
@@ -66,7 +64,7 @@ public class OPVector extends Data {
     @Override
     public void searchValuesMethod2() {
         int i = -1;
-        for(Integer val: randomDataSet) {
+        for(Integer val: getRandomDataSet()) {
             i = vectorList.indexOf(val);
         }
     }
@@ -74,14 +72,14 @@ public class OPVector extends Data {
     @Override
     public void getValues() {
         int val = 0;
-        for(int i=0; i< randomDataSet.size(); i++) {
+        for(int i=0; i< getRandomDataSet().size(); i++) {
             val = vectorList.get(i);
         }
     }
 
     @Override
     public void deleteValues() {
-        for(Integer val: randomDataSet) {
+        for(Integer val: getRandomDataSet()) {
             vectorList.remove(val);
         }
     }

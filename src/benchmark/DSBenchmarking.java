@@ -125,7 +125,7 @@ public class DSBenchmarking {
         }
 
         WriteOutput wo = new WriteOutput();
-        wo.writeToCsv(outputList, "runtime");
+        //wo.writeToCsv(outputList, "runtime");
     }
 
     public void measureMemoryConsumption() {

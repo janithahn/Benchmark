@@ -26,8 +26,6 @@ public class OPArrayList extends Data {
     /** ArrayList that all the operations are performed on. */
     private final ArrayList<Integer> arrayList;
 
-    private final List<Integer> randomDataSet = getRandomDataSet(getData(), 100);
-
     public OPArrayList(List<Integer> integerList) {
         super(integerList);
         arrayList = new ArrayList<>();
@@ -50,7 +48,7 @@ public class OPArrayList extends Data {
     @Override
     public void insertValuesAt() {
         int i = 0;
-        for (Integer val: randomDataSet) {
+        for (Integer val: getRandomDataSet()) {
             arrayList.add(i, val);
             i++;
         }
@@ -59,7 +57,7 @@ public class OPArrayList extends Data {
     @Override
     public void searchValuesMethod1() {
         int i = 0;
-        for(Integer val: randomDataSet) {
+        for(Integer val: getRandomDataSet()) {
             if(arrayList.contains(val)) {
                 i++;
             }
@@ -69,7 +67,7 @@ public class OPArrayList extends Data {
     @Override
     public void searchValuesMethod2() {
         int i = -1;
-        for(Integer val: randomDataSet) {
+        for(Integer val: getRandomDataSet()) {
             i = arrayList.indexOf(val);
         }
     }
@@ -77,14 +75,14 @@ public class OPArrayList extends Data {
     @Override
     public void getValues() {
         int val = 0;
-        for(int i=0; i< randomDataSet.size(); i++) {
+        for(int i=0; i< getRandomDataSet().size(); i++) {
             val = arrayList.get(i);
         }
     }
 
     @Override
     public void deleteValues() {
-        for(Integer val: randomDataSet) {
+        for(Integer val: getRandomDataSet()) {
             arrayList.remove(val);
         }
     }
