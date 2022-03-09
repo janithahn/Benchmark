@@ -101,7 +101,7 @@ public class DSBenchmarking {
                 "Vector(Initialized)"
         });
 
-        //System.out.println("NumberOfIntegers\tArrayList\tLinkedList\tVector");
+        System.out.println("NumberOfIntegers\tArrayList\tLinkedList\tVector");
         for (int numToCheck = getSTART(); numToCheck < getNUM_STEPS()*getINCREMENT() + getSTART(); numToCheck += getINCREMENT()) {
 
             String output = numToCheck + "\t";
@@ -121,7 +121,7 @@ public class DSBenchmarking {
             Pattern pattern = Pattern.compile("\t");
             String[] string_array = pattern.split(output);
             outputList.add(string_array);
-            //System.out.println(output);
+            System.out.println(output);
         }
 
         WriteOutput wo = new WriteOutput();
