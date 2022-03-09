@@ -38,13 +38,6 @@ public class OPVector extends Data {
     }
 
     @Override
-    public void process() {
-        insertValues();
-        //searchValues();
-        //deleteValues();
-    }
-
-    @Override
     public void insertValues() {
         for (Integer val:getData()) {
             vectorList.add(val);
@@ -52,12 +45,37 @@ public class OPVector extends Data {
     }
 
     @Override
-    public void searchValues() {
+    public void insertValuesAt() {
+        int i = 0;
+        for (Integer val: randomDataSet) {
+            vectorList.add(i, val);
+            i++;
+        }
+    }
+
+    @Override
+    public void searchValuesMethod1() {
         int i = 0;
         for(Integer val: randomDataSet) {
             if(vectorList.contains(val)) {
                 i++;
             }
+        }
+    }
+
+    @Override
+    public void searchValuesMethod2() {
+        int i = -1;
+        for(Integer val: randomDataSet) {
+            i = vectorList.indexOf(val);
+        }
+    }
+
+    @Override
+    public void getValues() {
+        int val = 0;
+        for(int i=0; i< randomDataSet.size(); i++) {
+            val = vectorList.get(i);
         }
     }
 

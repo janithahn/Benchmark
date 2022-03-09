@@ -41,13 +41,6 @@ public class OPArrayList extends Data {
     }
 
     @Override
-    public void process() {
-        insertValues();
-        //searchValues();
-        //deleteValues();
-    }
-
-    @Override
     public void insertValues() {
         for (Integer val:getData()) {
             arrayList.add(val);
@@ -55,12 +48,37 @@ public class OPArrayList extends Data {
     }
 
     @Override
-    public void searchValues() {
+    public void insertValuesAt() {
+        int i = 0;
+        for (Integer val: randomDataSet) {
+            arrayList.add(i, val);
+            i++;
+        }
+    }
+
+    @Override
+    public void searchValuesMethod1() {
         int i = 0;
         for(Integer val: randomDataSet) {
             if(arrayList.contains(val)) {
                 i++;
             }
+        }
+    }
+
+    @Override
+    public void searchValuesMethod2() {
+        int i = -1;
+        for(Integer val: randomDataSet) {
+            i = arrayList.indexOf(val);
+        }
+    }
+
+    @Override
+    public void getValues() {
+        int val = 0;
+        for(int i=0; i< randomDataSet.size(); i++) {
+            val = arrayList.get(i);
         }
     }
 

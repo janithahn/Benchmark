@@ -17,14 +17,28 @@ public abstract class Data {
 		this.integerList = integerList;
 	}
 
-	/** Perform process operation on the relevant data structure. */
-	public abstract void process();
+	/**
+	 * Perform process operation on the relevant data structure.
+	 */
+	public void process() {
+		insertValues();
+		//insertValuesAt();
+		//searchValuesMethod1();
+		//searchValuesMethod2();
+		//getValues();
+		//deleteValues();
+	}
 
 	/** Perform the insert operation on the relevant data structure. */
 	public abstract void insertValues();
+	public abstract void insertValuesAt();
 	
 	/** Perform the search operation on the relevant data structure. */
-	public abstract void searchValues();
+	public abstract void searchValuesMethod1();
+	public abstract void searchValuesMethod2();
+
+	/** Perform the get operation on the relevant data structure. */
+	public abstract void getValues();
 	
 	/** Perform the delete operation on the relevant data structure. */
 	public abstract void deleteValues();

@@ -34,13 +34,6 @@ public class OPLinkedList extends Data {
     }
 
     @Override
-    public void process() {
-        insertValues();
-        //searchValues();
-        //deleteValues();
-    }
-
-    @Override
     public void insertValues() {
         for (Integer val:getData()) {
             linkedList.add(val);
@@ -48,12 +41,37 @@ public class OPLinkedList extends Data {
     }
 
     @Override
-    public void searchValues() {
+    public void insertValuesAt() {
+        int i = 0;
+        for (Integer val: randomDataSet) {
+            linkedList.add(i, val);
+            i++;
+        }
+    }
+
+    @Override
+    public void searchValuesMethod1() {
         int i = 0;
         for(Integer val: randomDataSet) {
             if(linkedList.contains(val)) {
                 i++;
             }
+        }
+    }
+
+    @Override
+    public void searchValuesMethod2() {
+        int i = -1;
+        for(Integer val: randomDataSet) {
+            i = linkedList.indexOf(val);
+        }
+    }
+
+    @Override
+    public void getValues() {
+        int val = 0;
+        for(int i=0; i< randomDataSet.size(); i++) {
+            val = linkedList.get(i);
         }
     }
 
