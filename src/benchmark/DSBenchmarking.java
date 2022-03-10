@@ -34,10 +34,10 @@ public class DSBenchmarking {
     // This provides the list of operations to run
     private static final List<BiFunction<List<Integer>, Integer, Data>> experimentCreators = List.of(
             (data, capacity) -> new OPArrayList(data),
-            //OPArrayList::new,
+            OPArrayList::new,
             (data, capacity) -> new OPLinkedList(data),
-            (data, capacity) -> new OPVector(data)
-            //OPVector::new
+            (data, capacity) -> new OPVector(data),
+            OPVector::new
     );
 
     public DSBenchmarking(int initialCapacity) { this.initialCapacity = initialCapacity; }
@@ -88,34 +88,13 @@ public class DSBenchmarking {
     public int getInitialCapacity() { return this.initialCapacity; }
 
     public void measureRunTime() {
-        List<String[]> outputList = new ArrayList<>();
-        outputList.add(new String[] { //csv parameters
-                "NumberOfIntegers",
-                "ArrayList_insertValues()",
-                "ArrayList_insertValuesAt()",
-                "ArrayList_searchValuesMethod1()",
-                "ArrayList_searchValuesMethod2()",
-                "ArrayList_getValues()",
-                "ArrayList_getValues()",
-                "LinkedList_insertValues()",
-                "LinkedList_insertValuesAt()",
-                "LinkedList_searchValuesMethod1()",
-                "LinkedList_searchValuesMethod2()",
-                "LinkedList_getValues()",
-                "LinkedList_getValues()",
-                "Vector_insertValues()",
-                "Vector_insertValuesAt()",
-                "Vector_searchValuesMethod1()",
-                "Vector_searchValuesMethod2()",
-                "Vector_getValues()",
-                "Vector_getValues()",
-        });
+        List<String[]> outputList = getOutputList();
 
-        //System.out.println("NumberOfIntegers\tArrayList\tLinkedList\tVector");
+        //System.out.println(Arrays.toString(outputList.get(0)));
         long startTime = System.nanoTime();
         for (int numToCheck = getSTART(); numToCheck < getNUM_STEPS()*getINCREMENT() + getSTART(); numToCheck += getINCREMENT()) {
 
-            String output = numToCheck + "\t";
+            StringBuilder output = new StringBuilder(numToCheck + "\t");
 
             List<Integer> fromFile = getIntegerListFromFile(getDATA_FILE(), numToCheck);
 
@@ -150,13 +129,13 @@ public class DSBenchmarking {
                 }
                 for(long[] function: startAndEndTimes) {
                     double estTime = (function[1] - function[0]) / (getTRIALS() * 1_000_000.0); //milliseconds
-                    output += estTime + "\t";
+                    output.append(estTime).append("\t");
                 }
                 //double estTime = (endTime - startTime) / (getTRIALS() * 1_000_000.0); //milliseconds
                 //output += estTime + "\t";
             }
             Pattern pattern = Pattern.compile("\t");
-            String[] string_array = pattern.split(output);
+            String[] string_array = pattern.split(output.toString());
             outputList.add(string_array);
             //System.out.println(output);
         }
@@ -169,42 +148,52 @@ public class DSBenchmarking {
     }
 
     public void measureMemoryConsumption() {
-        List<String[]> outputList = new ArrayList<>();
-        outputList.add(new String[] {
-                "NumberOfIntegers",
-                "ArrayList",
-                "ArrayList(Initialized)",
-                "LinkedList",
-                "Vector",
-                "Vector(Initialized)"
-        });
+        List<String[]> outputList = getOutputList();
 
-        System.out.println("NumberOfIntegers\tArrayList\tLinkedList\tVector");
+        //System.out.println(Arrays.toString(outputList.get(0)));
         for (int numToCheck = getSTART(); numToCheck < getNUM_STEPS()*getINCREMENT() + getSTART(); numToCheck += getINCREMENT()) {
 
-            String output = numToCheck + "\t";
+            StringBuilder output = new StringBuilder(numToCheck + "\t");
 
             List<Integer> fromFile = getIntegerListFromFile(getDATA_FILE(), numToCheck);
 
             for(BiFunction<List<Integer>, Integer, Data> creator: getExperimentCreators()) {
-                long basicMemoryConsumption = 0;
+                long[] basicMemoryConsumption = new long[6];
                 for (int i = 0; i < getTRIALS(); i++) {
                     Data d = creator.apply(fromFile, getInitialCapacity());
-                    d.process();
-                    basicMemoryConsumption += calcMem();
+
+                    d.insertValues();
+                    basicMemoryConsumption[0] += calcMem();
+
+                    d.insertValuesAt();
+                    basicMemoryConsumption[1] += calcMem();
+
+                    d.searchValuesMethod1();
+                    basicMemoryConsumption[2] += calcMem();
+
+                    d.searchValuesMethod2();
+                    basicMemoryConsumption[3] += calcMem();
+
+                    d.getValues();
+                    basicMemoryConsumption[4] += calcMem();
+
+                    d.deleteValues();
+                    basicMemoryConsumption[5] += calcMem();
                 }
-                double estMem = (basicMemoryConsumption) / (double) getTRIALS();
-                output += Math.round(estMem/(1024 * 1024)) + "\t";
+                for(long memVal: basicMemoryConsumption) {
+                    double estMem = (memVal) / (double) getTRIALS();
+                    output.append(Math.round(estMem / (1024 * 1024))).append("\t");
+                }
             }
             Pattern pattern = Pattern.compile("\t");
-            String[] string_array = pattern.split(output);
+            String[] string_array = pattern.split(output.toString());
             outputList.add(string_array);
 
-            System.out.println(output);
+            //System.out.println(output);
         }
 
         WriteOutput wo = new WriteOutput();
-        //wo.writeToCsv(outputList, "memory");
+        wo.writeToCsv(outputList, "memory_with_all_functions");
     }
 
     private static long calcMem() {
@@ -213,5 +202,44 @@ public class DSBenchmarking {
         long memory = runtime.totalMemory() - runtime.freeMemory();
 
         return memory;
+    }
+
+    private static List<String[]> getOutputList() {
+        List<String[]> outputList = new ArrayList<>();
+        outputList.add(new String[] { //csv parameters
+                "NumberOfIntegers",
+                "ArrayList_insert()",
+                "ArrayList_insertAt()",
+                "ArrayList_searchMethod1()",
+                "ArrayList_searchMethod2()",
+                "ArrayList_get()",
+                "ArrayList_delete()",
+                "ArrayList_Initialized_insert()",
+                "ArrayList_Initialized_insertAt()",
+                "ArrayList_Initialized_searchMethod1()",
+                "ArrayList_Initialized_searchMethod2()",
+                "ArrayList_Initialized_get()",
+                "ArrayList_Initialized_delete()",
+                "LinkedList_insert()",
+                "LinkedList_insertAt()",
+                "LinkedList_searchMethod1()",
+                "LinkedList_searchMethod2()",
+                "LinkedList_get()",
+                "LinkedList_delete()",
+                "Vector_insert()",
+                "Vector_insertAt()",
+                "Vector_searchMethod1()",
+                "Vector_searchMethod2()",
+                "Vector_get()",
+                "Vector_delete()",
+                "Vector_Initialized_insert()",
+                "Vector_Initialized_insertAt()",
+                "Vector_Initialized_searchMethod1()",
+                "Vector_Initialized_searchMethod2()",
+                "Vector_Initialized_get()",
+                "Vector_Initialized_delete()",
+        });
+
+        return outputList;
     }
 }
