@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertTrue;
+//import static org.junit.Assert.assertTrue;
 
 public class WriteOutput {
     public static List<String[]> memoryData = new ArrayList<>();
@@ -31,7 +31,7 @@ public class WriteOutput {
     }
 
     public void writeToCsv(List<String[]> outputList, String filename) {
-        File csvOutputFile = new File("./output/" + filename + ".csv");
+        File csvOutputFile = new File("./" + filename + ".csv");
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             outputList.stream()
                     .map(this::convertToCSV)
@@ -39,6 +39,6 @@ public class WriteOutput {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-        assertTrue(csvOutputFile.exists());
+        //assertTrue(csvOutputFile.exists());
     }
 }

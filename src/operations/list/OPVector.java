@@ -1,4 +1,4 @@
-package operations;
+package operations.list;
 
 import data.Data;
 
@@ -36,8 +36,13 @@ public class OPVector extends Data {
     }
 
     @Override
+    public Vector<Integer> getDataStructure() {
+        return this.vectorList;
+    }
+
+    @Override
     public void insertValues() {
-        for (Integer val:getData()) {
+        for (Integer val:getListData()) {
             vectorList.add(val);
         }
     }
@@ -45,7 +50,7 @@ public class OPVector extends Data {
     @Override
     public void insertValuesAt() {
         int i = 0;
-        for (Integer val: getRandomDataSet()) {
+        for (Integer val: getRandomListSet()) {
             vectorList.add(i, val);
             i++;
         }
@@ -54,7 +59,7 @@ public class OPVector extends Data {
     @Override
     public void searchValuesMethod1() {
         int i = 0;
-        for(Integer val: getRandomDataSet()) {
+        for(Integer val: getRandomListSet()) {
             if(vectorList.contains(val)) {
                 i++;
             }
@@ -64,7 +69,7 @@ public class OPVector extends Data {
     @Override
     public void searchValuesMethod2() {
         int i = -1;
-        for(Integer val: getRandomDataSet()) {
+        for(Integer val: getRandomListSet()) {
             i = vectorList.indexOf(val);
         }
     }
@@ -72,14 +77,14 @@ public class OPVector extends Data {
     @Override
     public void getValues() {
         int val = 0;
-        for(int i=0; i< getRandomDataSet().size(); i++) {
+        for(int i = 0; i< getRandomListSet().size(); i++) {
             val = vectorList.get(i);
         }
     }
 
     @Override
     public void deleteValues() {
-        for(Integer val: getRandomDataSet()) {
+        for(Integer val: getRandomListSet()) {
             vectorList.remove(val);
         }
     }
