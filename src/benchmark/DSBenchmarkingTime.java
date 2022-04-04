@@ -11,7 +11,7 @@ import java.util.function.BiFunction;
 public class DSBenchmarkingTime {
 
 	public static void main(String [] args) {
-		DSBenchmarking dsBenchmarking = new DSBenchmarking(2000000);
+		DSBenchmarking dsBenchmarking = new DSBenchmarking(200000);
 		dsBenchmarking.measureRunTime();
 	}
 	

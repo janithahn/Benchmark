@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class DSBenchmarking {
 
     // Run each test more than once to get bigger numbers and less noise.
-    private static final int TRIALS = 100;
+    private static final int TRIALS = 50;
 
     // The data to test on
     private static final String DATA_FILE = "data/random_numbers/generated-data/n-2^20-0.data";
@@ -23,7 +23,7 @@ public class DSBenchmarking {
     private static final int INCREMENT = 50000;
 
     // The number of steps to run.
-    private static final int NUM_STEPS = 20;
+    private static final int NUM_STEPS = 50;
 
     // The number of characters to start with.
     private static final int START = 100000;
@@ -129,7 +129,7 @@ public class DSBenchmarking {
                 }
                 for(long[] function: startAndEndTimes) {
                     double estTime = (function[1] - function[0]) / (getTRIALS() * 1_000_000.0); //milliseconds
-                    output.append(estTime).append("\t");
+                    output.append(Math.round(estTime * 100.0)/100.0).append("\t");
                 }
                 //double estTime = (endTime - startTime) / (getTRIALS() * 1_000_000.0); //milliseconds
                 //output += estTime + "\t";
@@ -137,14 +137,15 @@ public class DSBenchmarking {
             Pattern pattern = Pattern.compile("\t");
             String[] string_array = pattern.split(output.toString());
             outputList.add(string_array);
-            //System.out.println(output);
+
+            System.out.println(output);
         }
         long endTime = System.nanoTime();
 
         System.out.println("Total time(min): " + (endTime-startTime)/(1_000_000_000.0 * 60));
 
         WriteOutput wo = new WriteOutput();
-        wo.writeToCsv(outputList, "runtime_with_all_functions");
+        wo.writeToCsv(outputList, "runtime_with_all_functions_microsec");
     }
 
     public void measureMemoryConsumption() {
@@ -199,9 +200,8 @@ public class DSBenchmarking {
     private static long calcMem() {
         Runtime runtime = Runtime.getRuntime();
         runtime.gc();
-        long memory = runtime.totalMemory() - runtime.freeMemory();
 
-        return memory;
+        return (runtime.totalMemory() - runtime.freeMemory());
     }
 
     private static List<String[]> getOutputList() {
