@@ -2,9 +2,9 @@ package operations.map;
 
 import data.Data;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class OPTreeMap extends Data {
 
@@ -12,7 +12,7 @@ public class OPTreeMap extends Data {
 
     public OPTreeMap(Map<String, Integer> map) {
         super(map);
-        treeMap = new LinkedHashMap<>();
+        treeMap = new TreeMap<>();
     }
 
     @Override
